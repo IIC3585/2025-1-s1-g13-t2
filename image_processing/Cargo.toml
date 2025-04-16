@@ -1,0 +1,15 @@
+[package]
+name = "image_processing"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+image = "0.25.5"
+wasm-bindgen = "0.2"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3"
+
