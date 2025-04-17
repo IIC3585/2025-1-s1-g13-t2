@@ -2,11 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>WASM Test</title>
+  <title>WASM Image Upload & Preview</title>
+  <style>
+    img {
+      max-width: 300x;
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-  <h1>Rust says:</h1>
-  <div id="output"></div>
+  <h1>Upload Image</h1>
+
+  <input type="file" id="upload" accept="image" />
+  <button id="grayscale">Invert</button>
+  <h2>Preview:</h2>
+  <img id="preview" src="" alt="Image preview will appear here" />
+  <div id="result"></div>
 
   <script type="module" src="./index.js"></script>
 </body>
