@@ -1,4 +1,6 @@
-import init, { check_state, glitch_image, test_wasm } from "./pkg/image_processing.js";
+// import init, { flip_image } from "./pkg/image_processing.js";
+import init, { grayscale_image, flip_image } from "./pkg/image_processing.js";
+
 
 let wasmReady = false;
 let originalBytes = null
@@ -27,13 +29,14 @@ upload.addEventListener("change", async (e) => {
 });
 
 grayscale.addEventListener("click", async () => {
-  console.log(test_wasm());
-  const processedImage = glitch_image(originalBytes);
-  console.log(processedImage);
+  const processedImage = grayscale_image(originalBytes);
   showResult(processedImage);
 });
 
-
+flip.addEventListener("click", async () => {
+  const processedImage = flip_image(originalBytes);
+  showResult(processedImage);
+});
 
 function showResult(bytes) {
   const blob = new Blob([bytes], { type: "image/png" });
@@ -41,10 +44,9 @@ function showResult(bytes) {
 
   const img = document.createElement("img");
   img.src = url;
-  img.alt = "Processed image";
-  img.style.maxWidth = "100%"; // Optional styling
+  img.alt = "Processed image"; 
 
   const resultDiv = document.getElementById("result");
-  resultDiv.innerHTML = ""; // Clear previous result
+  resultDiv.innerHTML = "";
   resultDiv.appendChild(img);
 }
