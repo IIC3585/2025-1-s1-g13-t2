@@ -3,3 +3,6 @@ target/
 pkg/      
 
 Cargo.lock
+
+
+/node_modules
