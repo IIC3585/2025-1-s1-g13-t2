@@ -19,3 +19,8 @@ Run this from `2025-1-s1-g13-t2/image_processing/`
 `
 
 This will update the web app automatically while you modify your rust code, instead of having to build for each change.
+
+
+# Run wasm-image-pwa app
+
+1. Run dev: `npm run dev`
