@@ -1,55 +1,51 @@
-import './style.css'
-
-import init, { grayscale_image, flip_image } from "./wasm/pkg/image_processing";
+import './style.css';
+import init, { grayscale_image, flip_image } from '../rust/pkg'
 
 let wasmReady = false;
 let originalBytes: Uint8Array | null = null;
 
-const upload = document.getElementById("upload") as HTMLInputElement;
-const preview = document.getElementById("preview") as HTMLImageElement;
-const grayscaleBtn = document.getElementById("grayscale") as HTMLButtonElement;
-const flipBtn = document.getElementById("flip") as HTMLButtonElement;
-const resultDiv = document.getElementById("result") as HTMLDivElement;
+const upload = document.getElementById('upload') as HTMLInputElement;
+const preview = document.getElementById('preview') as HTMLImageElement;
+const grayscaleBtn = document.getElementById('grayscale') as HTMLButtonElement;
+const flipBtn = document.getElementById('flip') as HTMLButtonElement;
+const resultDiv = document.getElementById('result') as HTMLDivElement;
 
-const setup = async () => {
+async function setup() {
   if (!wasmReady) {
     await init();
     wasmReady = true;
   }
-};
+}
 
 setup();
 
-upload.addEventListener("change", async (e) => {
-  const file = upload.files?.[0];
+upload.addEventListener('change', async (e) => {
+  const file = (e.target as HTMLInputElement).files?.[0];
   if (!file) return;
 
   const buffer = await file.arrayBuffer();
   originalBytes = new Uint8Array(buffer);
 
-  const url = URL.createObjectURL(file);
-  preview.src = url;
+  preview.src = URL.createObjectURL(file);
 });
 
-grayscaleBtn.addEventListener("click", async () => {
+grayscaleBtn.addEventListener('click', () => {
   if (!originalBytes) return;
-  const processed = grayscale_image(originalBytes);
-  showResult(processed);
+  const result = grayscale_image(originalBytes);
+  showResult(result);
 });
 
-flipBtn.addEventListener("click", async () => {
+flipBtn.addEventListener('click', () => {
   if (!originalBytes) return;
-  const processed = flip_image(originalBytes);
-  showResult(processed);
+  const result = flip_image(originalBytes);
+  showResult(result);
 });
 
 function showResult(bytes: Uint8Array) {
-  const blob = new Blob([bytes], { type: "image/png" });
+  const blob = new Blob([bytes], { type: 'image/png' });
   const url = URL.createObjectURL(blob);
-
-  resultDiv.innerHTML = "";
-  const img = document.createElement("img");
+  const img = document.createElement('img');
   img.src = url;
-  img.alt = "Processed image";
+  resultDiv.innerHTML = '';
   resultDiv.appendChild(img);
 }
