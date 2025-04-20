@@ -24,3 +24,7 @@ dist-ssr
 *.sw?
 
 /node_modules
+# === Rust specific ===
+target/
+pkg/      
+Cargo.lock

@@ -6,14 +6,23 @@
     <link rel="stylesheet" href="/src/style.css" />
     <title>WASM Image Processor</title>
     <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
       img {
         max-width: 500px;
         margin-top: 10px;
         display: block;
       }
+      #saved-images img {
+        max-width: 150px;
+        margin: 10px;
+      }
     </style>
   </head>
   <body>
+
   <header>
     <h1>WASM Image Processor</h1>
   </header>
@@ -36,6 +45,10 @@
     <h2>Result:</h2>
     <div id="result"></div>
     </section>
+
+    <h2>Imágenes guardadas:</h2>
+    <button id="show-saved">Mostrar imágenes guardadas</button>
+    <div id="saved-images"></div>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
