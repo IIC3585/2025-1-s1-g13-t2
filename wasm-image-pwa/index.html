@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/style.css" />
     <title>WASM Image Processor</title>
     <style>
       body {
@@ -20,17 +22,29 @@
     </style>
   </head>
   <body>
-    <h1>Procesador de Imágenes con WASM</h1>
 
-    <input type="file" id="upload" accept="image/*" />
-    <button id="grayscale">Escala de grises</button>
-    <button id="flip">Voltear</button>
+  <header>
+    <h1>WASM Image Processor</h1>
+  </header>
+  <section class="controls">
+    <input type="file" id="upload" class="controls__input" accept="image/*" />
 
-    <h2>Previsualización:</h2>
+    <div class="controls__buttons">
+      <button id="grayscale" class="btn">Invert</button>
+      <button id="flip" class="btn">Flip</button>
+      <button id="download" class="btn">Download</button>
+      <button id="enable-notifications" class="btn">Habilitar notificaciones</button>
+    </div>
+  </section>
+
+  <section class="preview">
+    <h2>Preview:</h2>
     <img id="preview" src="" alt="Image preview will appear here" />
-
-    <h2>Resultado:</h2>
+  </section>
+  <section class="result">
+    <h2>Result:</h2>
     <div id="result"></div>
+    </section>
 
     <h2>Imágenes guardadas:</h2>
     <button id="show-saved">Mostrar imágenes guardadas</button>

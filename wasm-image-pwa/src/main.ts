@@ -12,6 +12,19 @@ const grayscaleBtn = document.getElementById('grayscale') as HTMLButtonElement;
 const flipBtn = document.getElementById('flip') as HTMLButtonElement;
 const resultDiv = document.getElementById('result') as HTMLDivElement;
 const savedImagesDiv = document.getElementById('saved-images') as HTMLDivElement;
+const notifyBtn = document.getElementById('enable-notifications');
+
+if (notifyBtn) {
+  notifyBtn.addEventListener('click', async () => {
+    const permiso = await Notification.requestPermission(); 
+    if (permiso === 'granted') {
+      alert('Notificaciones habilitadas 🎉');
+    } else {
+      alert('No se pudieron habilitar las notificaciones.');
+    }   
+  });
+}
+
 
 async function setup() {
   if (!wasmReady) {
@@ -48,8 +61,18 @@ function showResult(bytes: Uint8Array) {
   const url = URL.createObjectURL(blob);
 
   const img = document.createElement('img');
+
   img.src = url;
   img.alt = 'Processed image';
+
+
+  img.src = url;  
+  if (Notification.permission === 'granted') {
+    new Notification('Procesado completado', {
+      body: 'Tu imagen ya está lista para descargar.',
+      icon: '/pwa-192x192.png'
+    }); 
+  }
 
   resultDiv.innerHTML = '';
   resultDiv.appendChild(img);
