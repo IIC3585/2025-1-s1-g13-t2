@@ -4,23 +4,37 @@
     <meta charset="UTF-8" />
     <title>WASM Image Processor</title>
     <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
       img {
         max-width: 500px;
         margin-top: 10px;
         display: block;
       }
+      #saved-images img {
+        max-width: 150px;
+        margin: 10px;
+      }
     </style>
   </head>
   <body>
-    <h1>Upload Image</h1>
+    <h1>Procesador de Imágenes con WASM</h1>
 
     <input type="file" id="upload" accept="image/*" />
-    <button id="grayscale">Invert</button>
-    <button id="flip">Flip</button>
-    <h2>Preview:</h2>
+    <button id="grayscale">Escala de grises</button>
+    <button id="flip">Voltear</button>
+
+    <h2>Previsualización:</h2>
     <img id="preview" src="" alt="Image preview will appear here" />
-    <h2>Result:</h2>
+
+    <h2>Resultado:</h2>
     <div id="result"></div>
+
+    <h2>Imágenes guardadas:</h2>
+    <button id="show-saved">Mostrar imágenes guardadas</button>
+    <div id="saved-images"></div>
 
     <script type="module" src="/src/main.ts"></script>
   </body>

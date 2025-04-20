@@ -1,5 +1,7 @@
+// src/main.ts
 import './style.css';
-import init, { grayscale_image, flip_image } from '../rust/pkg'
+import init, { grayscale_image, flip_image } from '../rust/pkg';
+import { saveImage, getAllImages } from './db';
 
 let wasmReady = false;
 let originalBytes: Uint8Array | null = null;
@@ -9,6 +11,7 @@ const preview = document.getElementById('preview') as HTMLImageElement;
 const grayscaleBtn = document.getElementById('grayscale') as HTMLButtonElement;
 const flipBtn = document.getElementById('flip') as HTMLButtonElement;
 const resultDiv = document.getElementById('result') as HTMLDivElement;
+const savedImagesDiv = document.getElementById('saved-images') as HTMLDivElement;
 
 async function setup() {
   if (!wasmReady) {
@@ -25,7 +28,6 @@ upload.addEventListener('change', async (e) => {
 
   const buffer = await file.arrayBuffer();
   originalBytes = new Uint8Array(buffer);
-
   preview.src = URL.createObjectURL(file);
 });
 
@@ -44,8 +46,32 @@ flipBtn.addEventListener('click', () => {
 function showResult(bytes: Uint8Array) {
   const blob = new Blob([bytes], { type: 'image/png' });
   const url = URL.createObjectURL(blob);
+
   const img = document.createElement('img');
   img.src = url;
+  img.alt = 'Processed image';
+
   resultDiv.innerHTML = '';
   resultDiv.appendChild(img);
+
+  saveImage(blob)
+    .then(() => console.log('Imagen guardada'))
+    .catch((err) => console.error('Error:', err));
 }
+
+async function showStoredImages() {
+  const images = await getAllImages();
+  savedImagesDiv.innerHTML = '';
+
+  images.forEach((blob) => {
+    const url = URL.createObjectURL(blob);
+    const img = document.createElement('img');
+    img.src = url;
+    img.alt = 'Imagen guardada';
+    img.style.maxWidth = '200px';
+    img.style.margin = '10px';
+    savedImagesDiv.appendChild(img);
+  });
+}
+
+document.getElementById('show-saved')?.addEventListener('click', showStoredImages);
