@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/style.css" />
     <title>WASM Image Processor</title>
     <style>
       img {
@@ -12,18 +14,29 @@
     </style>
   </head>
   <body>
-    <h1>Upload Image</h1>
+  <header>
+    <h1>WASM Image Processor</h1>
+  </header>
+  <section class="controls">
+    <input type="file" id="upload" class="controls__input" accept="image/*" />
 
-    <input type="file" id="upload" accept="image/*" />
-    <button id="grayscale">Invert</button>
-    <button id="flip">Flip</button>
+    <div class="controls__buttons">
+      <button id="grayscale" class="btn">Invert</button>
+      <button id="flip" class="btn">Flip</button>
+      <button id="download" class="btn">Download</button>
+      <button id="enable-notifications" class="btn">Habilitar notificaciones</button>
+    </div>
+  </section>
+
+  <section class="preview">
     <h2>Preview:</h2>
     <img id="preview" src="" alt="Image preview will appear here" />
+  </section>
+  <section class="result">
     <h2>Result:</h2>
-    <div id="result"></div> 
-    <button id="enable-notifications" class="btn">
-      Habilitar notificaciones
-    </button>
+    <div id="result"></div>
+    </section>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
